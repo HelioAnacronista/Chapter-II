@@ -38,6 +38,8 @@ export const GlobalStyle = createGlobalStyle`
     background: var(--background);
     -webkit-font-smoothing: antialiased;
   }
+
+  //Config by font
   body, input, textarea, button {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
@@ -46,6 +48,7 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 600;
   }
 
+  //button styled pointer
   button {
     cursor: pointer;
   }
