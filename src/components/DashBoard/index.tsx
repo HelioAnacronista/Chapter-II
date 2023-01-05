@@ -1,0 +1,15 @@
+import React from 'react';
+
+import { Summary } from '../Summary';
+import { Container } from './style';
+
+
+export function DashBoard() {
+  return (
+    <Container>
+
+      <Summary />
+
+    </Container>
+  )
+}
