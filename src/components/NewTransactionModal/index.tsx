@@ -1,20 +1,22 @@
-import React from 'react'
-import Modal from 'react-modal'
-import { Container, TransactionTypeContainer } from './style'
+import React, { useState } from "react";
+import Modal from "react-modal";
+import { Container, TransactionTypeContainer, RadioBox } from "./style";
 
-import incomeImg from '../../assets/income.svg'
-import outcomeImg from '../../assets/outcome.svg'
+import incomeImg from "../../assets/income.svg";
+import outcomeImg from "../../assets/outcome.svg";
 
-import closeImg from '../../assets/close.svg'
+import closeImg from "../../assets/close.svg";
 
 interface NewTransactionModalProps {
-  isOpen: boolean
-  onRequestClose: () => void
+  isOpen: boolean;
+  onRequestClose: () => void;
 }
 
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
 export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModalProps) {
+  //store which user onclick event
+  const [type, setType] = useState("deposit");
 
   return (
     <Modal
@@ -23,11 +25,10 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
-
-      <button 
-      type="button" 
-      onClick={onRequestClose} 
-      className="react-modal-close"
+      <button
+        type="button"
+        onClick={onRequestClose}
+        className="react-modal-close"
       >
         <img src={closeImg} alt="Fechar modal" />
       </button>
@@ -40,22 +41,25 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
         <input type="number" placeholder="Valor" />
 
         <TransactionTypeContainer>
-
-          <button
+          <RadioBox 
           type="button"
+          onClick={ () => { setType('deposit')}}
+          //Pass new Property
+          isActiver={type === 'deposit'}
           >
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
-          </button>
+          </RadioBox>
 
-          
-          <button
-          type="button"
+          <RadioBox 
+          type="button" 
+          onClick={ () => { setType('withdraw')}}
+          //Pass new Property
+          isActiver={type === 'withdraw'}
           >
-            <img src={outcomeImg} alt="Entrada" />
+            <img src={outcomeImg} alt="Saida" />
             <span>Saida</span>
-          </button>
-
+          </RadioBox>
         </TransactionTypeContainer>
 
         <input placeholder="Categoria" />
@@ -63,5 +67,5 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
         <button type="submit">Cadastrar</button>
       </Container>
     </Modal>
-  )
+  );
 }
