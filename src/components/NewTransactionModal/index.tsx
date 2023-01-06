@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
 import { Container, TransactionTypeContainer, RadioBox } from "./style";
 
@@ -18,6 +18,17 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
   //store which user onclick event
   const [type, setType] = useState("deposit");
 
+  const [title, setTitle] = useState('');
+  const [value, setValue] = useState(0);
+  const [category, setCategory] = useState('');
+
+  //every time it receives a submit it has the function
+  function handleCreateNewTransaction(event : FormEvent) {
+    event.preventDefault(); 
+
+    console.log({title, value, category, type})
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -33,15 +44,23 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
         <img src={closeImg} alt="Fechar modal" />
       </button>
 
-      <Container>
+      <Container onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar </h2>
 
-        <input placeholder="Titlo" />
+        <input placeholder="Titlo" 
+        value={title}
+        //change value digits all every times what tall user
+        onChange={event => setTitle(event.target.value)}
+        />
 
-        <input type="number" placeholder="Valor" />
+        <input type="number" placeholder="Valor"
+        value={value}
+        //change value digits all every times what tall user
+        onChange={event => setValue(Number(event.target.value))}
+        />
 
         <TransactionTypeContainer>
-          <RadioBox 
+          <RadioBox  
           type="button"
           onClick={ () => { setType('deposit')}}
           //Pass new Property
@@ -64,7 +83,11 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input placeholder="Categoria" />
+        <input placeholder="Categoria"
+        value={category}
+        //change value digits all every times what tall user
+        onChange={event => setCategory(event.target.value)}
+        />
 
         <button type="submit">Cadastrar</button>
       </Container>
