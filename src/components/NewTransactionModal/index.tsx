@@ -46,6 +46,7 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
           onClick={ () => { setType('deposit')}}
           //Pass new Property
           isActiver={type === 'deposit'}
+          activeColor="green"
           >
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
@@ -56,6 +57,7 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
           onClick={ () => { setType('withdraw')}}
           //Pass new Property
           isActiver={type === 'withdraw'}
+          activeColor="red"
           >
             <img src={outcomeImg} alt="Saida" />
             <span>Saida</span>
