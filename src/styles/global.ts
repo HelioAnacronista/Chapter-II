@@ -79,6 +79,8 @@ export const GlobalStyle = createGlobalStyle`
     position: relative;
     border-radius: 0.24rem;
   }
+
+  //img by close modal
   .react-modal-close {
     position: absolute;
     right: 1.5rem;
