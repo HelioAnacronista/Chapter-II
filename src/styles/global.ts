@@ -57,6 +57,7 @@ export const GlobalStyle = createGlobalStyle`
     cursor: not-allowed;
   }
 
+  //react-modal (external) parts
   .react-modal-overlay {
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -68,6 +69,8 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
   }
+  
+  //react-modal (internal) parts
   .react-modal-content {
     width: 100%;
     max-width: 576px;
