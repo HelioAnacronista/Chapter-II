@@ -16,7 +16,9 @@ export function TransactionsTable() {
 
   useEffect(() => {
     //response.data.transactions... para pegar os dados dentro do obj transactions
-    api.get("/transactions").then((response) => setTransactions(response.data.transactions));
+    api
+      .get("/transactions")
+      .then((response) => setTransactions(response.data.transactions));
   }, []);
 
   return (
@@ -35,12 +37,19 @@ export function TransactionsTable() {
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
               <td>{transaction.title}</td>
-              <td className={transaction.type}>R${transaction.amount}</td>
+              <td className={transaction.type}>
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(transaction.amount)}
+              </td>
               <td>{transaction.category}</td>
-              <td>{transaction.createdAt}</td>
-          </tr>
+              <td>
+                {new Intl.DateTimeFormat("pt-BR").format(
+                  new Date(transaction.createdAt))}
+              </td>
+            </tr>
           ))}
-          
         </tbody>
       </table>
     </Container>
