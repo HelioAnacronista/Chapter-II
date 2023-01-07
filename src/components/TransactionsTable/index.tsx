@@ -1,18 +1,27 @@
-import React, { useEffect } from 'react'
-import { Container } from './styled'
-import { api } from '../../services/api';
+import React, { useEffect, useState } from "react";
+import { Container } from "./styled";
+import { api } from "../../services/api";
+
+interface Transaction {
+  id: number;
+  title: string;
+  amount: number;
+  type: string;
+  category: string;
+  createdAt: string;
+}
 
 export function TransactionsTable() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    api.get('/transactions')
-    .then(response => console.log(response.data))
+    //response.data.transactions... para pegar os dados dentro do obj transactions
+    api.get("/transactions").then((response) => setTransactions(response.data.transactions));
   }, []);
 
   return (
     <Container>
       <table>
-
         <thead>
           <tr>
             <th>Titulo</th>
@@ -23,20 +32,17 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>dev de web site</td>
-            <td className='deposit'>R$12000.00</td>
-            <td>Web</td>
-            <td>20/02/2021</td>
+          {transactions.map((transaction) => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>R${transaction.amount}</td>
+              <td>{transaction.category}</td>
+              <td>{transaction.createdAt}</td>
           </tr>
-          <tr>
-            <td>Alguel</td>
-            <td className='withdraw'>- R$1000.00</td>
-            <td>Casa</td>
-            <td>17/02/2021</td>
-          </tr>
+          ))}
+          
         </tbody>
       </table>
     </Container>
-  )
+  );
 }
