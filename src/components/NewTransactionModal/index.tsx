@@ -20,27 +20,34 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose,
 }: NewTransactionModalProps) {
-
-
+  //Context global
   const { createTransaction } = useContext(TransactionsContext);
 
   //store which user onclick event
   const [type, setType] = useState("deposit");
-
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("");
 
   //every time it receives a submit it has the function
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    createTransaction({
+    //function in context
+    await createTransaction({
       title,
       amount,
       category,
       type,
-    })
+    });
+
+    //setValue by model
+    setTitle("");
+    setAmount(0);
+    setCategory("");
+    setType("deposit")
+    //close model
+    onRequestClose();
   }
 
   return (

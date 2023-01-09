@@ -16,10 +16,10 @@ interface TransactionsProviderProps {
 
 type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
 
-
+//Fala o formato do contexto
 interface TransactionContextData {
    transactions: Transaction[];
-   createTransaction: (transactions: TransactionInput) => void;
+   createTransaction: (transactions: TransactionInput) => Promise<void>;
 }
 
 export const TransactionsContext = createContext<TransactionContextData>({} as TransactionContextData);
@@ -35,8 +35,8 @@ export function TransactionsProvider({children}: TransactionsProviderProps) {
   }, []);
 
   //add uma nova task na lista do context
-  function createTransaction(transaction: TransactionInput) {
-   api.post("/transactions", transaction);
+  async function createTransaction(transaction: TransactionInput) {
+   await api.post("/transactions", transaction);
   }
 
   return (
