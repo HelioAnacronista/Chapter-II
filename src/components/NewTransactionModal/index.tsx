@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import Modal from "react-modal";
 import { Container, TransactionTypeContainer, RadioBox } from "./style";
 
@@ -7,6 +7,7 @@ import outcomeImg from "../../assets/outcome.svg";
 import closeImg from "../../assets/close.svg";
 
 import { api } from "./../../services/api";
+import { TransactionsContext } from "../utils/TransactionsContext";
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -15,22 +16,31 @@ interface NewTransactionModalProps {
 
 Modal.setAppElement("#root");
 
-export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModalProps) {
+export function NewTransactionModal({
+  isOpen,
+  onRequestClose,
+}: NewTransactionModalProps) {
+
+
+  const { createTransaction } = useContext(TransactionsContext);
 
   //store which user onclick event
   const [type, setType] = useState("deposit");
 
   const [title, setTitle] = useState("");
-  const [value, setValue] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("");
 
   //every time it receives a submit it has the function
   function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    const data = { title, value, category, type };
-
-    api.post("/transactions", data);
+    createTransaction({
+      title,
+      amount,
+      category,
+      type,
+    })
   }
 
   return (
@@ -61,9 +71,9 @@ export function NewTransactionModal({isOpen,onRequestClose,}: NewTransactionModa
         <input
           type="number"
           placeholder="Valor"
-          value={value}
+          value={amount}
           //change value digits all every times what tall user
-          onChange={(event) => setValue(Number(event.target.value))}
+          onChange={(event) => setAmount(Number(event.target.value))}
         />
 
         <TransactionTypeContainer>
