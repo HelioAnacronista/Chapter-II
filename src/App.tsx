@@ -4,13 +4,14 @@ import { DashBoard } from './components/DashBoard'
 
 import { useState } from 'react'
 import { NewTransactionModal } from './components/NewTransactionModal'
-import { TransactionsContext } from './components/utils/TransactionsContext'
+import { TransactionsContext, TransactionsProvider } from './components/utils/TransactionsContext'
 
 
 
 
 export function App() {
 
+  
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(
     false,
   )
@@ -25,13 +26,13 @@ export function App() {
 
 
   return (
-    <TransactionsContext.Provider value={[]}>
+    <TransactionsProvider>
       <Header onOpenNewTransctionModal={handleOpenNewTransactionModal}/>
       <DashBoard />
 
       <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} ></NewTransactionModal>
 
       <GlobalStyle />
-    </TransactionsContext.Provider>
+    </TransactionsProvider>
   )
 }
