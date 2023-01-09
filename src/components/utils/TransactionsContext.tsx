@@ -24,6 +24,7 @@ interface TransactionContextData {
 
 export const TransactionsContext = createContext<TransactionContextData>({} as TransactionContextData);
 
+
 export function TransactionsProvider({children}: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
@@ -35,8 +36,20 @@ export function TransactionsProvider({children}: TransactionsProviderProps) {
   }, []);
 
   //add uma nova task na lista do context
-  async function createTransaction(transaction: TransactionInput) {
-   await api.post("/transactions", transaction);
+  async function createTransaction(transactionInput: TransactionInput) {
+   const response = await api.post("/transactions", {
+      ...transactionInput,
+      createdAt: new Date()
+   });
+   const {transaction} = response.data;
+
+   setTransactions([
+      //mutuabildiade do react 
+      //Copia os dados que ja tem 
+      ...transactions,
+      //add um novo
+      transaction
+   ])
   }
 
   return (
