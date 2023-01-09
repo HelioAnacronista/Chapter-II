@@ -5,6 +5,9 @@ DT-money</h1>
 ## About this project
 
 Projeto feito com base nas aulas do capitulo II do _ignite lab_
+![image](https://user-images.githubusercontent.com/104803451/211398009-b4810529-9d83-4b1c-ba6d-cb8283a7bb9c.png)
+
+![image](https://user-images.githubusercontent.com/104803451/211397990-3bb1d038-67fa-4ecf-a063-8e54a8da4517.png)
 
 ---
 
